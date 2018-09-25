@@ -14,11 +14,6 @@ request("https://forums.elderscrollsonline.com/en/categories/website-article-dis
     var $ = cheerio.load(html);
     var resultsEso = [];
 
-
-    // div[class^= "test"]
-
-
-    // $("a.Title").each(function (i, element) {
     $("tr[id^='Discussion_']").each(function (i, element) {
         var esoTitle = $(element).children().children().children("a.Title").text();
         var esoLink = $(element).children().children().children("a.Title").attr("href");
