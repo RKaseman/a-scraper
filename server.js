@@ -1,8 +1,8 @@
 
 var express = require("express");
-var bodyParser = require("body-parser"); // req.body
-var cheerio = require("cheerio"); // parses HTML and finds elements
-var request = require("request"); // HTTP request for HTML page
+var bodyParser = require("body-parser");
+var cheerio = require("cheerio");
+var request = require("request");
 var mongoose = require("mongoose");
 var axios = require("axios");
 
@@ -43,7 +43,7 @@ app.get("/scrape", function (req, res) {
 
 // routes
 
-app.get("/title", function (req, res) {
+app.get("/scrape-title", function (req, res) {
     db.Threads.find({})
         .then(function (dbThreads) {
             res.json(dbThreads);
@@ -53,48 +53,28 @@ app.get("/title", function (req, res) {
         });
 });
 
-app.get("/link", function (req, res) {
-    db.scrapeCx.find().sort({ link: -1 }, function (error, found) {
-        if (error) {
-            console.log(error);
-        }
-        else {
-            res.json(found);
-        }
-    });
+app.get("/scrape-title/:id", function (req, res) {
+    db.Threads.findOne({ _id: req.params.id })
+        .populate("note")
+        .then(function (dbThreads) {
+            res.json(dbThreads);
+        })
+        .catch(function (error) {
+            res.json(error);
+        });
 });
 
-app.get("/user", function (req, res) {
-    db.scrapeCx.find().sort({ link: -1 }, function (error, found) {
-        if (error) {
-            console.log(error);
-        }
-        else {
-            res.json(found);
-        }
-    });
-});
-
-app.get("/replies", function (req, res) {
-    db.scrapeCx.find().sort({ link: -1 }, function (error, found) {
-        if (error) {
-            console.log(error);
-        }
-        else {
-            res.json(found);
-        }
-    });
-});
-
-app.post("/submit", function (req, res) {
-    console.log(req.body);
-    db.scrapeCx.save(resultsESO, function (error, saved) {
-        if (error) {
-            console.log(error);
-        } else {
-            res.send(saved);
-        }
-    });
+app.post("/scrape-title/:id", function (req, res) {
+    db.Notes.create(req.body)
+        .then(function (dbNotes) {
+            return db.Threads.findOneAndUpdate({ _id: re.params.id }, { note: dbNotes._id }, { new: true });
+        })
+        .then(function (dbThreads) {
+            res.json(dbThreads);
+        })
+        .catch(function (error) {
+            res.json(error);
+        });
 });
 
 app.listen(PORT, function () {
