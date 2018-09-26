@@ -1,4 +1,6 @@
 
 module.exports = {
-  Thread: require("./dbModel.js")
+    Threads: require("./Threads.js"),
+    Notes: require("./Notes.js")
 };
+

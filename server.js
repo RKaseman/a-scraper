@@ -1,96 +1,56 @@
 
 var express = require("express");
-var mongojs = require("mongojs");
-// req.body
-var bodyParser = require("body-parser");
-// parses HTML and finds elements
-var cheerio = require("cheerio");
-// HTTP request for HTML page
-var request = require("request");
+var bodyParser = require("body-parser"); // req.body
+var cheerio = require("cheerio"); // parses HTML and finds elements
+var request = require("request"); // HTTP request for HTML page
 var mongoose = require("mongoose");
+var axios = require("axios");
 
+var db = require("./models");
+
+var PORT = 3000;
 
 var app = express();
+
 app.use(express.static("public"));
+app.use(bodyParser.urlencoded({ extended: true }));
 
-// var DataBaseModel = require("./dbModel.js");
-
-mongoose.connect("mongodb://localhost/schemaexample", { useNewUrlParser: true });
-
-
-// db config
-var databaseUrl = "scraper";
-var collections = ["scrapeCx"];
-var db = mongojs(databaseUrl, collections);
-db.on("error", function (error) {
-    console.log("Database Error:", error);
-});
-
-// from db
-app.get("/all", function (req, res) {
-    db.scrapeCx.find({}, function (error, found) {
-        if (error) {
-            console.log(error);
-        }
-        else {
-            res.json(found);
-        }
-    });
-});
+mongoose.connect("mongodb://localhost/scraper", { useNewUrlParser: true });
 
 app.get("/scrape", function (req, res) {
-    request("https://forums.elderscrollsonline.com/en/categories/website-article-discussions", function (error, response, html) {
-        var $ = cheerio.load(html);
+    axios.get("https://forums.elderscrollsonline.com/en/categories/website-article-discussions").then(function (response) {
+        var $ = cheerio.load(response.data);
 
         $("tr[id^='Discussion_']").each(function (i, element) {
-            var title = $(element).children().children().children("a.Title").text();
-            var link = $(element).children().children().children("a.Title").attr("href");
-            var user = $(element).children("td.LastUser").children().children("a.UserLink").attr("href");
-            var replies = $(element).children("td.CountComments").children().children("span.Number").text();
-            var latest = $(element).children("td.LastUser").children().children().children().children("time").text();
-            if (title && link && user && replies && latest) {
-                db.scrapeCx.insert({
-                    title: title,
-                    link: link,
-                    lastUser: user,
-                    numPosts: replies,
-                    latest: latest
-                },
-                    function (error, inserted) {
-                        if (error) {
-                            console.log(error);
-                        } else {
-                            console.log(inserted);
-                        }
-                    });
-            }
+            var result = {};
+
+            result.title = $(this).children().children().children("a.Title").text();
+            result.link = $(this).children().children().children("a.Title").attr("href");
+            result.user = $(this).children("td.LastUser").children().children("a.UserLink").attr("href");
+            result.replies = $(this).children("td.CountComments").children().children("span.Number").text();
+            result.latest = $(this).children("td.LastUser").children().children().children().children("time").text();
+            db.Threads.create(result)
+                .then(function (dbThreads) {
+                    console.log(dbThreads);
+                })
+                .catch(function (error) {
+                    return res.json(error);
+                });
         });
+        res.send("Complete");
     });
-    res.send("Complete");
 });
 
 // routes
 
-app.post("/submit", function (req, res) {
-    console.log(req.body);
-    db.scrapeCx.save(resultsESO, function (error, saved) {
-        if (error) {
-            console.log(error);
-        } else {
-            res.send(saved);
-        }
-    });
-});
-
 app.get("/title", function (req, res) {
-    db.scrapeCx.find().sort({ title: 1 }, function (error, found) {
-        if (error) {
-            console.log(error);
-        }
-        else {
-            res.json(found);
-        }
-    });
+    db.Threads.find({})
+        .then(function (dbThreads) {
+            res.json(dbThreads);
+        })
+        .catch(function (error) {
+            res.json(error);
+        });
 });
 
 app.get("/link", function (req, res) {
@@ -126,7 +86,18 @@ app.get("/replies", function (req, res) {
     });
 });
 
-app.listen(3000, function () {
-    console.log("listen port 3000");
+app.post("/submit", function (req, res) {
+    console.log(req.body);
+    db.scrapeCx.save(resultsESO, function (error, saved) {
+        if (error) {
+            console.log(error);
+        } else {
+            res.send(saved);
+        }
+    });
+});
+
+app.listen(PORT, function () {
+    console.log("listen port " + PORT);
 });
 
