@@ -21,20 +21,20 @@
     <h3 class="header">ESO Forum Scraper</h3>
     <div id="buttons">
         <button class="btn" id="title-sort">Sort By Title</button>
-        <button class="btn" id="link-sort">Sort By Link</button>
+        <button class="btn" id="replies-sort">Sort By Link</button>
     </div>
     <table id="results">
         <thead>
             <tr>
-                <th id="article-name">Title</th>
-                <th id="article-url">Link</th>
-                <th id="article-class">Last User</th>
-                <th id="article-weight">Post Count</th>
-                <th id="article-new-name">Last Post Time</th>
+                <th id="scrape-title">Title</th>
+                <th id="scrape-link">Link</th>
+                <th id="scrape-user">Last User</th>
+                <th id="scrape-replies">Reply Count</th>
+                <th id="scrape-latest">Last Reply Time</th>
             </tr>
         </thead>
         <tbody>
-            <!-- Results from DB here -->
+            <!-- $("tbody").append(tr); -->
         </tbody>
     </table>
     <script src="app.js"></script>
