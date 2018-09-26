@@ -41,12 +41,12 @@
 
 $.getJSON("/scrape-title", function (data) {
     for (var i = 0; i < data.length; i++) {
-        $("#scrape-title").append("<p data-id='" + data[i]._id + "'>"
-            + data[i].title
-            + "<br />" + data[i].link
-            + "<br />" + data[i].user
-            + "<br />" + data[i].replies
-            + "<br />" + data[i].latest
+        $("#results").append("<p data-id='" + data[i]._id + "'>"
+            + "<strong>Thread Title: </strong>" + data[i].title
+            + "<br><strong>Link: </strong><a href='" + data[i].link + "'>" + data[i].link + "</a>"
+            + "<br><strong>Last User: </strong>" + data[i].user
+            + "<br><strong>Reply Count: </strong>" + data[i].replies
+            + "<br><strong>Date: </strong>" + data[i].latest
             + "</p>");
     }
 });
