@@ -1,7 +1,5 @@
 
 // 18-01-10
-
-
 // create table body
 function displayResults(scraper) {
     $("tbody").empty();
@@ -17,7 +15,7 @@ function displayResults(scraper) {
     });
 }
 
-// Bonus function to change "active" header
+// change highlighted header
 function setActive(selector) {
     // remove and apply 'active' class to distinguish which column we sorted by
     $("th").removeClass("active");
@@ -35,14 +33,9 @@ $("#title-sort").on("click", function () {
     });
 });
 
-// When user clicks the name sort button, display the table sorted by name
 $("#replies-sort").on("click", function () {
-    // Set new column as currently-sorted (active)
     setActive("#scrape-replies");
-
-    // Do an api call to the back end for json with all animals sorted by name
     $.getJSON("/replies", function (data) {
-        // Call our function to generate a table body
         displayResults(data);
     });
 });

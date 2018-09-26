@@ -7,9 +7,16 @@ var bodyParser = require("body-parser");
 var cheerio = require("cheerio");
 // HTTP request for HTML page
 var request = require("request");
+var mongoose = require("mongoose");
+
 
 var app = express();
 app.use(express.static("public"));
+
+// var DataBaseModel = require("./dbModel.js");
+
+mongoose.connect("mongodb://localhost/schemaexample", { useNewUrlParser: true });
+
 
 // db config
 var databaseUrl = "scraper";
