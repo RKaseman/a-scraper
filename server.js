@@ -71,7 +71,7 @@ app.get("/threads/:id", function (req, res) {
 app.post("/threads/:id", function (req, res) {
     db.Note.create(req.body)
         .then(function (dbNote) {
-            return db.Thread.findOneAndUpdate({ _id: re.params.id }, { note: dbNote._id }, { new: true });
+            return db.Thread.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
         })
         .then(function (dbThread) {
             res.json(dbThread);
