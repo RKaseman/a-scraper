@@ -5,9 +5,6 @@
 }
 
 body {
-    /* background-image: url("../images/4bccdad311b80b99bf.jpg"); */
-    /* background-repeat: no-repeat; */
-    /* background-size: 100%; */
     background-color: #dddddd;
     color: #ffffff;
 }
@@ -32,7 +29,7 @@ a {
     padding-top: 5%;
 }
 
-#results {
+#threads {
     display: inline-block;
     overflow: auto;
     width: 60%;
@@ -53,8 +50,7 @@ h2 {
     color: #ffffff;
 }
 
-textarea,
-input {
+input, textarea {
     display: block;
     width: 100%;
     background-color: #c00b75;
@@ -72,4 +68,8 @@ textarea {
 
 #savenote {
     margin-top: 32px;
+}
+
+#titleinput {
+    background-color: #c00b75;
 }

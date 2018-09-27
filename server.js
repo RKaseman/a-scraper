@@ -2,7 +2,7 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var cheerio = require("cheerio");
-var request = require("request");
+// var request = require("request");
 var mongoose = require("mongoose");
 var axios = require("axios");
 
@@ -33,9 +33,9 @@ app.get("/scrape", function (req, res) {
             result.user = $(this).children("td.LastUser").children().children("a.UserLink").attr("href");
             result.replies = $(this).children("td.CountComments").children().children("span.Number").text();
             result.latest = $(this).children("td.LastUser").children().children().children().children("time").text();
-            db.Threads.create(result)
-                .then(function (dbThreads) {
-                    console.log(dbThreads);
+            db.Thread.create(result)
+                .then(function (dbThread) {
+                    console.log(dbThread);
                 })
                 .catch(function (error) {
                     return res.json(error);
@@ -47,34 +47,34 @@ app.get("/scrape", function (req, res) {
 
 // routes
 
-app.get("/scrape-title", function (req, res) {
-    db.Threads.find({})
-        .then(function (dbThreads) {
-            res.json(dbThreads);
+app.get("/threads", function (req, res) {
+    db.Thread.find({})
+        .then(function (dbThread) {
+            res.json(dbThread);
         })
         .catch(function (error) {
             res.json(error);
         });
 });
 
-app.get("/scrape-title/:id", function (req, res) {
-    db.Threads.findOne({ _id: req.params.id })
+app.get("/threads/:id", function (req, res) {
+    db.Thread.findOne({ _id: req.params.id })
         .populate("note")
-        .then(function (dbThreads) {
-            res.json(dbThreads);
+        .then(function (dbThread) {
+            res.json(dbThread);
         })
         .catch(function (error) {
             res.json(error);
         });
 });
 
-app.post("/scrape-title/:id", function (req, res) {
-    db.Notes.create(req.body)
-        .then(function (dbNotes) {
-            return db.Threads.findOneAndUpdate({ _id: re.params.id }, { note: dbNotes._id }, { new: true });
+app.post("/threads/:id", function (req, res) {
+    db.Note.create(req.body)
+        .then(function (dbNote) {
+            return db.Thread.findOneAndUpdate({ _id: re.params.id }, { note: dbNote._id }, { new: true });
         })
-        .then(function (dbThreads) {
-            res.json(dbThreads);
+        .then(function (dbThread) {
+            res.json(dbThread);
         })
         .catch(function (error) {
             res.json(error);

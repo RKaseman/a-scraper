@@ -3,7 +3,7 @@ var mongoose = require("mongoose");
 
 var Schema = mongoose.Schema;
 
-var ThreadsSchema = new Schema({
+var ThreadSchema = new Schema({
     title: {
         type: String,
         required: true
@@ -26,11 +26,11 @@ var ThreadsSchema = new Schema({
     },
     note: {
         type: Schema.Types.ObjectId,
-        ref: "Notes"
+        ref: "Note"
     }
 });
 
-var Threads = mongoose.model("Threads", ThreadsSchema);
+var Thread = mongoose.model("Thread", ThreadSchema);
 
-module.exports = Threads;
+module.exports = Thread;
 

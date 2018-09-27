@@ -1,6 +1,6 @@
 
 module.exports = {
-    Threads: require("./Threads.js"),
-    Notes: require("./Notes.js")
+    Thread: require("./Thread"),
+    Note: require("./Note")
 };
 
