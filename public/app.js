@@ -2,15 +2,29 @@
 $.getJSON("/threads", function (data) {
     for (var i = 0; i < data.length; i++) {
         $("#threads").append("<p data-id='" + data[i]._id + "'>"
-            + "<strong>Thread Title: </strong>" + data[i].title
-            + "<br><strong>Link: </strong><a href='" + data[i].link + "'>" + data[i].link + "</a>"
-            + "<br><strong>Last User: </strong>" + data[i].user
-            + "<br><strong>Reply Count: </strong>" + data[i].replies
-            + "<br><strong>Date: </strong>" + data[i].latest
+            + "<em>Thread Title: </em>" + data[i].title
+            + "<br><em>Link: </em><a href='" + data[i].link + "'>" + data[i].link + "</a>"
+            + "<br><em>Last User: </em><a href='" + data[i].user + "'>" + data[i].user + "</a>"
+            + "<br><em>Reply Count: </em>" + data[i].replies
+            + "<br><em>Date: </em>" + data[i].latest
             + "</p>");
     }
 });
 
+
+$(document).on("click", "#scrapeNow", function () {
+    // location.reload();
+    $("#threads").empty();
+    $.ajax({
+        method: "GET",
+        url: "/scrape"
+    })
+        .then(function test() {
+            // $("#threads").empty();
+            location.reload();
+        });
+        test();
+});
 
 $(document).on("click", "p", function () {
     $("#notes").empty();

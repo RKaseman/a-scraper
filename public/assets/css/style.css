@@ -16,6 +16,7 @@ body {
     opacity: 0.75;
     height: 712px;
     margin: 64px 0px;
+    padding: 0px 32px;
 }
 
 a {
@@ -33,7 +34,7 @@ a {
     display: inline-block;
     overflow: auto;
     width: 60%;
-    height: 504px;
+    height: 496px;
     margin: 96px 0px;
     padding:32px;
 }
@@ -42,12 +43,14 @@ a {
     float: right;
     width: 30%;
     color: #000000;
+    margin-top: 96px;
     padding: 0px 32px 0px 0px;
 }
 
 h2 {
     font-size: 16px;
     color: #ffffff;
+    height: 96px;
 }
 
 input, textarea {
@@ -57,7 +60,7 @@ input, textarea {
 }
 
 input {
-    height: 36px;
+    height: 32px;
     font-size: 24px;
 }
 
@@ -73,3 +76,4 @@ textarea {
 #titleinput {
     background-color: #c00b75;
 }
+
