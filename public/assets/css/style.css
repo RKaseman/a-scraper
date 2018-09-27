@@ -16,7 +16,10 @@ body {
     opacity: 0.75;
     height: 712px;
     margin: 64px 0px;
-    padding: 0px 32px;
+}
+
+h3, #scrapeNow {
+    margin-left: 32px;
 }
 
 a {
@@ -34,9 +37,9 @@ a {
     display: inline-block;
     overflow: auto;
     width: 60%;
-    height: 496px;
+    height: 488px;
     margin: 96px 0px;
-    padding:32px;
+    padding: 32px;
 }
 
 #notes {
