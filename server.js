@@ -15,9 +15,11 @@ var app = express();
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-var MONGOLAB_BROWN_URI = process.env.MONGOLAB_BROWN_URI || "mongodb://heroku_jvm4v5rf:bmqh4d0sattcsvjb2ohu692iqk@ds115753.mlab.com:15753/heroku_jvm4v5rf";
+// var MONGOLAB_BROWN_URI = process.env.MONGOLAB_BROWN_URI || "mongodb://heroku_jvm4v5rf:bmqh4d0sattcsvjb2ohu692iqk@ds115753.mlab.com:15753/heroku_jvm4v5rf";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://heroku_jvm4v5rf:bmqh4d0sattcsvjb2ohu692iqk@ds115753.mlab.com:15753/heroku_jvm4v5rf";
+// var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scraper";
 mongoose.Promise = Promise;
-mongoose.connect(MONGOLAB_BROWN_URI);
+mongoose.connect(MONGODB_URI);
 
 // mongoose.connect("mongodb://localhost/scraper", { useNewUrlParser: true });
 
