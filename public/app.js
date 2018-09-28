@@ -13,7 +13,6 @@ $.getJSON("/threads", function (data) {
 
 $(document).on("click", "#scrapeNow", function () {
     $("#threads").empty();
-    // location.reload();
     $.ajax({
         method: "GET",
         url: "/scrape"
