@@ -11,25 +11,21 @@ $.getJSON("/threads", function (data) {
     }
 });
 
-
 $(document).on("click", "#scrapeNow", function () {
-    // location.reload();
     $("#threads").empty();
+    // location.reload();
     $.ajax({
         method: "GET",
         url: "/scrape"
     })
-        .then(function test() {
-            // $("#threads").empty();
+        .then(function () {
             location.reload();
         });
-        test();
 });
 
 $(document).on("click", "p", function () {
     $("#notes").empty();
     var thisId = $(this).attr("data-id");
-
     $.ajax({
         method: "GET",
         url: "/threads/" + thisId
@@ -40,7 +36,6 @@ $(document).on("click", "p", function () {
             $("#notes").append("<input id='titleinput' name='title' >");
             $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
             $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
-
             if (data.note) {
                 $("#titleinput").val(data.note.title);
                 $("#bodyinput").val(data.note.body);
@@ -50,7 +45,6 @@ $(document).on("click", "p", function () {
 
 $(document).on("click", "#savenote", function () {
     var thisId = $(this).attr("data-id");
-
     $.ajax({
         method: "POST",
         url: "/threads/" + thisId,
@@ -63,7 +57,6 @@ $(document).on("click", "#savenote", function () {
             console.log(data);
             $("#notes").empty();
         });
-
     $("#titleinput").val("");
     $("#bodyinput").val("");
 });
