@@ -19,7 +19,8 @@ mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI);
 
 app.get("/scrape", function (req, res) {
-    db.Thread.remove(function () {
+    db.Thread.deleteMany( { "note": { "$exists": false } } )
+    .then(function () {
         axios.get("https://forums.elderscrollsonline.com/en/categories/website-article-discussions").then(function (response) {
             var $ = cheerio.load(response.data);
             $("tr[id^='Discussion_']").each(function (i, element) {
