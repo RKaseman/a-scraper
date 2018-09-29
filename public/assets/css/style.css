@@ -1,15 +1,26 @@
+
 body {
-    background-color: #dddddd;
+    background-color: #000000;
     color: #ffffff;
 }
 
 .tone {
-    background-image: url("../images/4bccdad311b80b99bf.jpg");
-    background-size: 100%;
-    background-color: #0000ff;
-    opacity: 0.75;
-    height: 712px;
+    position: relative;
+    text-shadow: 1px 2px 2px #000000;
+    height: 728px;
     margin: 64px 0px;
+}
+
+.over {
+    position: absolute;
+    top: 0px;
+    height: 728px;
+    padding: 16px;
+}
+
+img {
+    opacity: 0.55;
+    width: 100%;
 }
 
 h1, #scrapeNow {
@@ -28,31 +39,27 @@ h2 {
     height: 96px;
 }
 
-a {
-    color: #c00b75;
-}
-
 #threads {
     display: inline-block;
     overflow: auto;
     width: 60%;
-    height: 488px;
+    height: 448px;
     margin: 96px 0px;
     padding: 32px;
 }
 
 #notes {
     float: right;
-    width: 30%;
+    width: 25%;
     color: #000000;
-    margin-top: 96px;
-    padding: 0px 32px 0px 0px;
+    margin: 64px 40px 0 0;
 }
 
 input, textarea {
     display: block;
     width: 100%;
     background-color: #c00b75;
+    padding: 8px;
 }
 
 input {
@@ -63,13 +70,15 @@ input {
 textarea {
     height: 200px;
     font-size: 18px;
+    border: 1px solid #ffffff;
 }
 
 #savenote {
-    margin-top: 32px;
+    margin-top: 16px;
 }
 
 #titleinput {
     background-color: #c00b75;
+    border: 1px solid #ffffff;
 }
 

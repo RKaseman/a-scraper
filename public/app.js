@@ -4,7 +4,7 @@ $.getJSON("/threads", function (data) {
         $("#threads").append("<p data-id='" + data[i]._id + "'>"
             + "<em>Thread Title: </em>" + data[i].title
             + "<br><em>Link: </em><a href='" + data[i].link + "'>" + data[i].link + "</a>"
-            + "<br><em>Last User: </em><a href='" + data[i].user + "'>" + data[i].user + "</a>"
+            + "<br><em>Last User: </em><a href='https://forums.elderscrollsonline.com" + data[i].user + "'>" + data[i].user + "</a>"
             + "<br><em>Reply Count: </em>" + data[i].replies
             + "<br><em>Date: </em>" + data[i].latest
             + "</p>");
@@ -13,6 +13,7 @@ $.getJSON("/threads", function (data) {
 
 $(document).on("click", "#scrapeNow", function () {
     $("#threads").empty();
+    $("#notes").empty();
     $.ajax({
         method: "GET",
         url: "/scrape"
