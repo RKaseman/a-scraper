@@ -8,6 +8,6 @@ In this assignment, you'll create a web app that lets users view and leave comme
 
 Another challenging assignment.
 
-The hardest part was preserving the attached notes. I tried 5 or 6 approaches before Evan the TA and tutor helped me out.
+The hardest part was preserving the attached notes. I tried 5 or 6 approaches before Evan, the TA and tutor helped me out.
 
 The most fun I had with it was digging into the website to figure out what to target for scraping, and doing it for my wife, who's currently enjoying playing The Elder Scrolls Online.
